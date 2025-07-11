@@ -1,15 +1,29 @@
+"""
+This is an example of usage of `geode`. It solves the Robertson's problem, the
+most classic example of stiff ODE [1]:
+
+x0' = -0.04 x0 + 1e4 x1*x2                  x0(0) = 1
+x1' =  0.04 x0 - 1e4 x1*x2 - 3e7 x1**2      x1(0) = 0
+x2' =  3e7 x1**2                            x2(0) = 0
+
+`geode` uses tolerances recommended by [2] and returns solutions at t = 4e-1,
+4e0, ... 4e10, which can be compared to the solution obtained in [2].
+
+[1] H. Robertson. The solution of a set of reaction rate equations. 1966.
+[2] K. Radhakrishnan, A. Hindmarsh. Description and use of LSODE... 1993.
+
+"""
 import numpy as np
 from geode import *
 
 def odefun(t, x):
 	"""
 	Right-hand side of the Robertson's set of equations.
-	H. Robertson. The solution of a set of reaction rate equations. 1966.
 	
 	"""
 	dx0 = -.04*x[0] + 1e4*x[1]*x[2]
-	dx1 = .04*x[0] - 1e4*x[1]*x[2] - 3e7*x[1]**2
-	dx2 = 3e7*x[1]**2
+	dx1 =  .04*x[0] - 1e4*x[1]*x[2] - 3e7*x[1]**2
+	dx2 =  3e7*x[1]**2
 
 	return np.array([dx0, dx1, dx2])
 

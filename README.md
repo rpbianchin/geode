@@ -28,7 +28,7 @@ Instead of setting `t1` as a float, it can be set as an array. In that case, the
 
 - `full_output`: if `full_output=True`, the truncation error, tolerance, order, method and success status of each step will be returned as arrays, which is useful for debugging.
 
-- `verbosity`: defines what `geode` will print on the screen. If -1, it will print nothing. If 0, it will print warning and error messages. Otherwise, it will print information about the integration every `verbosity` steps.
+- `verbosity`: defines what `geode` will print on the screen. If `-1`, it will print nothing. If `0`, it will print warning and error messages. Otherwise, it will print information about the integration every `verbosity` steps.
 
 ## Implementation details
 Adams-Moulton and BDF are multivalue methods, in which the evaluation of a new step uses information from previous step. In `geode`, this is made through the use of the Nordsieck matrix, allowing for easy and inexpensive change of method, order and step size. This allows also for accurate and inexpensive interpolation of the solution at desired values if `t1` is set as an array.
