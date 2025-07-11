@@ -1,8 +1,8 @@
-#geode
+# geode
 
 **GEar solver for ODEs** is an integrator for stiff ordinary differential equations. It uses Gear's method with Adams-Moulton method for non-stiff problems and Backwars Differentiation Formula for stiff problems. `geode` is heavily inspired on LSODA by A. Hindmarsh and L. Petzold. To maintain accuracy without compromising performance, `geode` changes step size, method and order automatically.
 
-##Usage
+## Usage
 
 The basic syntax for `geode` is
 ```python
@@ -12,7 +12,7 @@ where `odefun` is a function evaluating the right-hand side of the ODE; `x0` is 
 
 Instead of setting `t1` as a float, it can be set as an array. In that case, the output will be given at the values specified at `t1` instead than at every step.
 
-##Additional parameters
+## Additional parameters
 
 - `atol` and `rtol`: absolute and relative tolerances for the truncation error. `rtol` is set to `1e-6` and `atol` is set to 0, but it is important to provide an adequate value of `atol` for the problem. Both parameters can be arrays (with size equal to the number of equations) to set tolerances for each individual variable.
 
@@ -30,7 +30,7 @@ Instead of setting `t1` as a float, it can be set as an array. In that case, the
 
 - `verbosity`: defines what `geode` will print on the screen. If -1, it will print nothing. If 0, it will print warning and error messages. Otherwise, it will print information about the integration every `verbosity` steps.
 
-##Implementation details
+## Implementation details
 Adams-Moulton and BDF are multivalue methods, in which the evaluation of a new step uses information from previous step. In `geode`, this is made through the use of the Nordsieck matrix, allowing for easy and inexpensive change of method, order and step size. This allows also for accurate and inexpensive interpolation of the solution at desired values if `t1` is set as an array.
 
 `geode` changes method by comparing the current step size with the step size that would be used by the other method to reach accuracy. This comparison is made at the end of each step and is very inexpensive. The change in order is made by trying adjacent orders and selecting the one that leads to the smallest step size. The attempt at changing order is made every few steps.
